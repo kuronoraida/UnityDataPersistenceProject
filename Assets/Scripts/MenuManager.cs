@@ -11,7 +11,7 @@ public class MenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        AppManager.Instance.LoadData();
     }
 
     // Update is called once per frame
@@ -22,6 +22,7 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
+        AppManager.Instance.SaveData();
         SceneManager.LoadScene(1);
     }
 
@@ -29,5 +30,12 @@ public class MenuManager : MonoBehaviour
     {
         AppManager.Instance.playerName = textObject.text;
         Debug.Log(AppManager.Instance.playerName);
+    }
+
+    public void ResetScores()
+    {
+        AppManager.Instance.highScore = 0;
+        AppManager.Instance.highScoreName = "";
+        AppManager.Instance.SaveData();
     }
 }

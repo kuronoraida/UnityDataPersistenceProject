@@ -13,6 +13,7 @@ public class MainManager : MonoBehaviour
 
     public Text ScoreText;
     public GameObject GameOverText;
+    public GameObject GameOverButton;
     public Text HighScoreText;
 
     private bool m_Started = false;
@@ -76,6 +77,13 @@ public class MainManager : MonoBehaviour
     {
         m_Points += point;
         ScoreText.text = AppManager.Instance.playerName + "'s score : " + m_Points;
+    }
+
+    public void GameOver()
+    {
+        m_GameOver = true;
+        GameOverText.SetActive(true);
+        GameOverButton.SetActive(true);
         if (m_Points > highScore)
         {
             highScore = m_Points;
@@ -84,16 +92,16 @@ public class MainManager : MonoBehaviour
             AppManager.Instance.highScore = highScore;
             UpdateHighScoreText();
         }
-    }
-
-    public void GameOver()
-    {
-        m_GameOver = true;
-        GameOverText.SetActive(true);
+        AppManager.Instance.SaveData();
     }
 
     public void UpdateHighScoreText()
     {
         HighScoreText.text = highScoreName + "'s high score: " + highScore;
+    }
+
+    public void Exit()
+    {
+        SceneManager.LoadScene(0);
     }
 }
